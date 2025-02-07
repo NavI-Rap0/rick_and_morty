@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import SearchButton from "./searchButton/SearchButton"; // Імпортуємо нову компоненту для кнопки пошуку
+import SearchBar from "./searchBar/SearchBar";
 
 // Enum для фільтрів
 enum Statuses {
@@ -38,16 +38,16 @@ function Dropdown({ label, options, selectedOption, onSelect }: {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="relative">
+    <div className="relative justify-start">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="px-4 py-2 bg-gray-500 bg-opacity-50 border rounded hover:bg-gray-300 transition-all"
+        className="px-4 py-2 bg-gray-500 bg-opacity-50 border rounded hover:bg-gray-300 transition-all w-[11rem]"
       >
         {label}: {selectedOption || "Вибрати"}
       </button>
 
       {isOpen && (
-        <div className="absolute z-10 mt-2 bg-white border rounded shadow-lg w-40">
+        <div className="absolute z-10 mt-2 bg-white border rounded shadow-lg w-[11rem]">
           {options.map((option) => (
             <button
               key={option}
@@ -69,10 +69,7 @@ function Dropdown({ label, options, selectedOption, onSelect }: {
 }
 
 export default function Filter({ currentFilters }: FilterProps) {
-  const nameFilter = currentFilters?.name || "";
-  const [searchQuery, setSearchQuery] = useState(nameFilter);
-
-  const createFilterUrl = (category: "status" | "species" | "gender" | "name", value: string) => {
+  const createFilterUrl = (category: "status" | "species" | "gender", value: string) => {
     const newFilters: Record<string, string | undefined> = { ...currentFilters };
 
     if (newFilters[category] === value) {
@@ -81,7 +78,6 @@ export default function Filter({ currentFilters }: FilterProps) {
       newFilters[category] = value;
     }
 
-    // Видаляємо `undefined`, щоб уникнути помилки TypeScript
     const validFilters = Object.fromEntries(
       Object.entries(newFilters).filter(([, v]) => v !== undefined)
     ) as Record<string, string>;
@@ -89,13 +85,8 @@ export default function Filter({ currentFilters }: FilterProps) {
     return `/characters?${new URLSearchParams(validFilters).toString()}`;
   };
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    window.location.href = createFilterUrl("name", searchQuery);
-  };
-
   return (
-    <div className="flex flex-row gap-4 p-4 bg-transparent rounded-md items-center">
+    <div className="flex flex-row gap-4 p-4 bg-transparent rounded-md w-[100%] items-center">
       <Dropdown
         label="Статус"
         options={Object.values(Statuses)}
@@ -117,22 +108,10 @@ export default function Filter({ currentFilters }: FilterProps) {
         onSelect={(gender) => (window.location.href = createFilterUrl("gender", gender))}
       />
 
-      <form onSubmit={handleSearch} className="flex items-center border rounded px-4 py-2 bg-gray-500 bg-opacity-50">
-        <input
-          type="text"
-          placeholder="Пошук за ім'ям..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="outline-none bg-transparent cursor-text"
-        />
-        {/* Тепер передаємо функцію handleSearch */}
-        <SearchButton onClick={handleSearch} />
-      </form>
+      <SearchBar
+        // initialQuery={currentFilters.name || ""}
+        onSearch={(query) => (window.location.href = `/characters?name=${query}`)}
+      />
     </div>
   );
 }
-
-
-
-
-

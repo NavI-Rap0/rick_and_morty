@@ -1,5 +1,5 @@
 import { fetchCharacters } from "../../utils/fetchData";
-import CharacterCard from "../../components/CharacterCard";
+import CharacterCard from "../../components/CharacterCatd/CharacterCard";
 import Pagination from "../../components/Pagination";
 import Filter from "../../components/Filter";
 
@@ -20,7 +20,7 @@ export default async function CharactersPage({ searchParams }: { searchParams: R
   if (searchParams.status) filters.status = searchParams.status.toLowerCase();
   if (searchParams.species) filters.species = searchParams.species;
   if (searchParams.gender) filters.gender = searchParams.gender;
-  if (searchParams.name) filters.name = searchParams.name; // Додаємо пошук за ім'ям
+  if (searchParams.name) filters.name = searchParams.name; 
 
   const data = await fetchCharacters(currentPage, filters);
 

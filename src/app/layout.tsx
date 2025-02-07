@@ -18,8 +18,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="uk">
-      <div className="space"></div>
       <body id="app-container">
+      <div className="space"></div>
         <LoaderProvider>
           <Navbar />
           <div >

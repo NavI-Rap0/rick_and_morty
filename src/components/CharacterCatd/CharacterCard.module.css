@@ -1,0 +1,278 @@
+/* Контейнер картки */
+.container {
+    position: relative;
+    width: 220px;
+    height: 320px;
+    transition: 200ms;
+  }
+  
+  .container:active {
+    width: 205px;
+    height: 310px;
+  }
+  
+  .card {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    transition: 700ms;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(1px);
+  }
+  
+  /* Ефект при ховері */
+  .tracker:hover ~ .card {
+    transition: 300ms;
+    /* filter: brightness(1.1); */
+    backdrop-filter: blur(5px);
+  }
+  
+  /* Підсвічування при ховері */
+  .container:hover .card::before {
+    transition: 200ms;
+    content: '';
+    opacity: 80%;
+  }
+  
+  /* Напівпрозорий фон при ховері */
+  .card::before {
+    content: '';
+    background: linear-gradient(43deg, rgb(65, 88, 208) 0%, rgb(200, 80, 192) 46%, rgb(255, 204, 112) 100%);
+    filter: blur(2rem);
+    opacity: 40%;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+    transition: 200ms;
+  }
+
+  .title {
+    font-size: x-large;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .details {
+    opacity: 0;
+    transition: opacity 300ms ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .container:hover .details {
+    opacity: 1;
+  }
+  
+  /* Аватар */
+  .avatar {
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+  
+  /* Статус */
+  .status {
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+  }
+  
+  /* Вид */
+  .species {
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
+  /* Кольори виду */
+  .species-human {
+    color: blue;
+  }
+  
+  .species-alien {
+    color: green;
+  }
+  
+  .species-other {
+    color: red;
+  }
+  
+  /* Стать */
+  .gender {
+    font-size: 14px;
+    font-weight: medium;
+    margin-top: 5px;
+  }
+  
+  /* Кольори статі */
+  .gender-male {
+    color: rgb(36, 131, 255);
+  }
+  
+  .gender-female {
+    color: rgb(255, 10, 169);
+  }
+  
+  .gender-other {
+    color: purple;
+  }
+  
+  /* Трекери для ефекту нахилу */
+  .canvas {
+    perspective: 800px;
+    inset: 0;
+    z-index: 2;
+    position: absolute; 
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas: "tr-1 tr-2 tr-3 tr-4 tr-5"
+      "tr-6 tr-7 tr-8 tr-9 tr-10"
+      "tr-11 tr-12 tr-13 tr-14 tr-15"
+      "tr-16 tr-17 tr-18 tr-19 tr-20"
+      "tr-21 tr-22 tr-23 tr-24 tr-25";
+  }
+  
+  .tr-1 {
+    grid-area: tr-1;
+  }
+  
+  .tr-2 {
+    grid-area: tr-2;
+  }
+  
+  .tr-3 {
+    grid-area: tr-3;
+  }
+  
+  .tr-4 {
+    grid-area: tr-4;
+  }
+  
+  .tr-5 {
+    grid-area: tr-5;
+  }
+  
+  .tr-6 {
+    grid-area: tr-6;
+  }
+  
+  .tr-7 {
+    grid-area: tr-7;
+  }
+  
+  .tr-8 {
+    grid-area: tr-8;
+  }
+  
+  .tr-9 {
+    grid-area: tr-9;
+  }
+  
+  .tr-10 {
+    grid-area: tr-10;
+  }
+  
+  .tr-11 {
+    grid-area: tr-11;
+  }
+  
+  .tr-12 {
+    grid-area: tr-12;
+  }
+  
+  .tr-13 {
+    grid-area: tr-13;
+  }
+  
+  .tr-14 {
+    grid-area: tr-14;
+  }
+  
+  .tr-15 {
+    grid-area: tr-15;
+  }
+  
+  .tr-16 {
+    grid-area: tr-16;
+  }
+  
+  .tr-17 {
+    grid-area: tr-17;
+  }
+  
+  .tr-18 {
+    grid-area: tr-18;
+  }
+  
+  .tr-19 {
+    grid-area: tr-19;
+  }
+  
+  .tr-20 {
+    grid-area: tr-20;
+  }
+  
+  .tr-21 {
+    grid-area: tr-21;
+  }
+  
+  .tr-22 {
+    grid-area: tr-22;
+  }
+  
+  .tr-23 {
+    grid-area: tr-23;
+  }
+  
+  .tr-24 {
+    grid-area: tr-24;
+  }
+  
+  .tr-25 {
+    grid-area: tr-25;
+  }
+  
+  .tracker {
+    z-index: 210;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+  
+  /* Кожен `.tr-X` відповідає нахилу картки */
+  .tr-1:hover ~ .card { transform: rotateX(20deg) rotateY(-10deg); }
+  .tr-2:hover ~ .card { transform: rotateX(20deg) rotateY(-5deg); }
+  .tr-3:hover ~ .card { transform: rotateX(20deg) rotateY(0deg); }
+  .tr-4:hover ~ .card { transform: rotateX(20deg) rotateY(5deg); }
+  .tr-5:hover ~ .card { transform: rotateX(20deg) rotateY(10deg); }
+  .tr-6:hover ~ .card { transform: rotateX(10deg) rotateY(-10deg); }
+  .tr-7:hover ~ .card { transform: rotateX(10deg) rotateY(-5deg); }
+  .tr-8:hover ~ .card { transform: rotateX(10deg) rotateY(0deg); }
+  .tr-9:hover ~ .card { transform: rotateX(10deg) rotateY(5deg); }
+  .tr-10:hover ~ .card { transform: rotateX(10deg) rotateY(10deg); }
+  .tr-11:hover ~ .card { transform: rotateX(0deg) rotateY(-10deg); }
+  .tr-12:hover ~ .card { transform: rotateX(0deg) rotateY(-5deg); }
+  .tr-13:hover ~ .card { transform: rotateX(0deg) rotateY(0deg); }
+  .tr-14:hover ~ .card { transform: rotateX(0deg) rotateY(5deg); }
+  .tr-15:hover ~ .card { transform: rotateX(0deg) rotateY(10deg); }
+  .tr-16:hover ~ .card { transform: rotateX(-10deg) rotateY(-10deg); }
+  .tr-17:hover ~ .card { transform: rotateX(-10deg) rotateY(-5deg); }
+  .tr-18:hover ~ .card { transform: rotateX(-10deg) rotateY(0deg); }
+  .tr-19:hover ~ .card { transform: rotateX(-10deg) rotateY(5deg); }
+  .tr-20:hover ~ .card { transform: rotateX(-10deg) rotateY(10deg); }
+  .tr-21:hover ~ .card { transform: rotateX(-20deg) rotateY(-10deg); }
+  .tr-22:hover ~ .card { transform: rotateX(-20deg) rotateY(-5deg); }
+  .tr-23:hover ~ .card { transform: rotateX(-20deg) rotateY(0deg); }
+  .tr-24:hover ~ .card { transform: rotateX(-20deg) rotateY(5deg); }
+  .tr-25:hover ~ .card { transform: rotateX(-20deg) rotateY(10deg); }
+  
+  
