@@ -3,10 +3,10 @@ import Button from "@/components/Button";
 import { fetchCharacterById, fetchEpisodesByIds } from "@/utils/fetchData";
 import Image from "next/image";
 
-interface PageProps {
-  params: { id: string };
-  searchParams?: { showEpisodes?: string };
-}
+// interface PageProps {
+//   params: { id: string };
+//   searchParams?: { showEpisodes?: string };
+// }
 
 interface Character {
   id: number;
@@ -25,7 +25,7 @@ interface Episode {
   name: string;
   episode: string;
 }
-export default async function CharacterPage({ params, searchParams }: PageProps) {
+export default async function CharacterPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ showEpisodes?: string }> }) {
   const awaitedParams = await params;
   const awaitedSearchParams = await searchParams;
 
