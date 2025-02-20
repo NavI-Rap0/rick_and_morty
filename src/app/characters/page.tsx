@@ -1,62 +1,44 @@
-import { fetchCharacters } from "../../utils/fetchData";
-import CharacterCard from "../../components/CharacterCatd/CharacterCard";
-import Pagination from "../../components/Pagination";
-import Filter from "../../components/Filter";
+import { fetchCharacters } from "@/utils/fetchData";
+import { buildFilters, buildPageUrl } from "@/utils/helpers";
+import CharacterCardsList from "@/components/CharacterCardsList";
+import Pagination from "@/components/Pagination";
+import Filter from "@/components/Filter";
+import SomeError from "@/components/SomeError";
 
-type Character = {
-  id: number;
-  name: string;
-  gender: string;
-  species: string;
-  image: string;
-  status: string;
-};
+interface SearchParams {
+  page?: string;
+  status?: string;
+  species?: string;
+  gender?: string;
+  name?: string;
+}
 
-export default async function CharactersPage({ searchParams }: { searchParams: Record<string, string | undefined> }) {
-  const currentPage = parseInt(searchParams.page ?? "1", 10);
-   
-  // Фільтри
-  const filters: Record<string, string> = {};
-  if (searchParams.status) filters.status = searchParams.status.toLowerCase();
-  if (searchParams.species) filters.species = searchParams.species;
-  if (searchParams.gender) filters.gender = searchParams.gender;
-  if (searchParams.name) filters.name = searchParams.name; 
-
+export default async function CharactersPage({
+  searchParams: rawSearchParams,
+}: {
+  searchParams?: SearchParams;
+}) {
+  const searchParams = await Promise.resolve(rawSearchParams);
+  const currentPage = parseInt(searchParams?.page ?? "1", 10);
+  const filters = buildFilters(searchParams);
   const data = await fetchCharacters(currentPage, filters);
-
-  if (!data?.results?.length) {
-    return (
-      <main className="flex flex-col items-center justify-center py-8 px-4">
-        <h1 className="text-2xl font-bold">Нічого не знайдено</h1>
-        <p>Спробуйте змінити фільтри або перезавантажити сторінку.</p>
-      </main>
-    );
-  }
-
   const { results: characters, info } = data;
 
+
+  if (!data || !data.results || data.results.length === 0) {
+    return <SomeError />;
+  }
+
+
   return (
-    <main className="flex flex-col items-center justify-center py-8 px-4">
+    <div className="flex flex-col items-center justify-center py-8 px-4">
       <Filter currentFilters={filters} />
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-8">
-        {characters.map((character: Character) => (
-          <CharacterCard key={character.id} {...character} />
-        ))}
-      </div>
-
+      <CharacterCardsList characters={characters} />
       <Pagination
         currentPage={currentPage}
         totalPages={info.pages}
-        onPageChange={(page) => {
-          const validFilters = Object.fromEntries(
-            Object.entries(filters).filter(([, v]) => v !== undefined)
-          ) as Record<string, string>;
-
-          return `/characters?page=${page}&${new URLSearchParams(validFilters).toString()}`;
-        }}
+        onPageChange={(page) => buildPageUrl(filters, page)}
       />
-    </main>
+    </div>
   );
-} 
-
+}

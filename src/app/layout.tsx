@@ -1,8 +1,8 @@
-// layout.tsx
 import Navbar from "../components/Navbar";
 import "../styles/globals.css";
 import { LoaderProvider } from "../utils/contextLoader";
 import Loader from "../components/Loader";
+import SpaceBackground from "../components/SpaceBgr/SpaceBackground";
 
 export const metadata = {
   title: "Rick and Morty",
@@ -19,10 +19,10 @@ export default function RootLayout({
   return (
     <html lang="uk">
       <body id="app-container">
-      <div className="space"></div>
+        <SpaceBackground />
         <LoaderProvider>
           <Navbar />
-          <div >
+          <div>
             <Loader />
             {children}
           </div>
@@ -31,5 +31,4 @@ export default function RootLayout({
     </html>
   );
 }
-
 

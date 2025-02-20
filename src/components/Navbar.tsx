@@ -13,7 +13,7 @@ const Navbar = () => {
             height={128}
             width={300}
             priority
-            style={{ width: "auto", height: "auto" }} // Фікс попередження
+            style={{ width: "auto", height: "auto" }}
           />
         </div>
 
@@ -28,6 +28,7 @@ const Navbar = () => {
                     alt="Black Hole"
                     width={128}
                     height={128}
+                    unoptimized
                   />
                 </div>
                 <Link
