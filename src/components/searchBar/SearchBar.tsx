@@ -5,6 +5,7 @@ import styles from "./SearchBar.module.css";
 
 type SearchBarProps = {
   onSearch: (query: string) => void;
+  query?: string; // Додано query як необов'язковий пропс
 };
 
 export default function SearchBar({ onSearch }: SearchBarProps) {

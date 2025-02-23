@@ -1,74 +1,40 @@
-"use client";
-import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
-import SearchBar from "@/components/searchBar/SearchBar";
+import { fetchEpisodes } from "@/utils/fetchData";
+import { buildEpisodesPageUrl } from "@/utils/helpers";
+import SearchHandler from "@/components/SearchHandler";
 import Pagination from "@/components/Pagination";
+import SomeError from "@/components/SomeError";
+import EpisodesList from "@/components/EpisodesList";
 
-type Episode = {
-  id: number;
-  name: string;
-  air_date: string;
-  episode: string;
-};
+interface SearchParams {
+  page?: string;
+  name?: string;
+}
 
-export default function EpisodesPage() {
-  const [episodes, setEpisodes] = useState<Episode[]>([]);
-  const [filteredEpisodes, setFilteredEpisodes] = useState<Episode[] | null>(null);
-  const [totalPages, setTotalPages] = useState<number>(1);
+export default async function EpisodesPage({
+  searchParams,
+}: {
+  searchParams?: Promise<SearchParams>;
+}) {
+  const awaitedSearchParams = await searchParams;
+  const currentPage = parseInt(awaitedSearchParams?.page ?? "1", 10);
+  const searchQuery = awaitedSearchParams?.name ?? "";
 
-  const searchParams = useSearchParams();
-  const currentPage = Number(searchParams.get("page")) || 1;
+  const data = await fetchEpisodes(currentPage, searchQuery);
+  if (!data || !data.results || data.results.length === 0) {
+    return <SomeError />;
+  }
 
-  useEffect(() => {
-    const fetchEpisodes = async () => {
-      try {
-        const response = await fetch(`https://rickandmortyapi.com/api/episode?page=${currentPage}`);
-        const data = await response.json();
-        setEpisodes(data.results);
-        setTotalPages(data.info.pages);
-      } catch (error) {
-        console.error("Помилка завантаження епізодів:", error);
-      }
-    };
-    fetchEpisodes();
-  }, [currentPage]);
-
-  const handleSearch = (query: string) => {
-    const filtered = episodes.filter((episode) =>
-      episode.name.toLowerCase().includes(query.toLowerCase())
-    );
-    setFilteredEpisodes(filtered.length > 0 ? filtered : []);
-  };
-
-  const handlePageChange = (page: number) => `?page=${page}`;
+  const { results: episodes, info } = data;
 
   return (
-    <div className="p-4">
-      <SearchBar onSearch={handleSearch} />
-      <div className="mt-4">
-        {(filteredEpisodes ? filteredEpisodes : episodes).length > 0 ? (
-          (filteredEpisodes ?? episodes).map((episode) => (
-            <div key={episode.id} className="p-4 mb-4 bg-white rounded-lg shadow">
-              <h2 className="text-xl font-semibold">{episode.name}</h2>
-              <p className="text-gray-600">{episode.episode}</p>
-              <p className="text-gray-500">{episode.air_date}</p>
-            </div>
-          ))
-        ) : (
-          <p>Епізоди не знайдено.</p>
-        )}
-      </div>
-
-      {!filteredEpisodes && (
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-        />
-      )}
+    <div className="flex flex-col items-center justify-center py-8 px-4">
+      <SearchHandler />
+      <EpisodesList episodes={episodes} />
+      <Pagination
+        currentPage={currentPage}
+        totalPages={info.pages}
+        onPageChange={(page: number) => buildEpisodesPageUrl({ name: searchQuery }, page)}
+      />
     </div>
   );
 }
-
-
-  

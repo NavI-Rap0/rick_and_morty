@@ -14,21 +14,19 @@ interface SearchParams {
 }
 
 export default async function CharactersPage({
-  searchParams: rawSearchParams,
+  searchParams,
 }: {
-  searchParams?: SearchParams;
+  searchParams?: Promise<SearchParams>;
 }) {
-  const searchParams = await Promise.resolve(rawSearchParams);
-  const currentPage = parseInt(searchParams?.page ?? "1", 10);
-  const filters = buildFilters(searchParams);
+  const awaitedSearchParams = await searchParams;
+  const currentPage = parseInt(awaitedSearchParams?.page ?? "1", 10);
+  const filters = buildFilters(awaitedSearchParams);
   const data = await fetchCharacters(currentPage, filters);
   const { results: characters, info } = data;
-
 
   if (!data || !data.results || data.results.length === 0) {
     return <SomeError />;
   }
-
 
   return (
     <div className="flex flex-col items-center justify-center py-8 px-4">

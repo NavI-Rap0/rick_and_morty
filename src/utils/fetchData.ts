@@ -104,3 +104,52 @@ export const fetchEpisodesByIds = async (episodeUrls: string[]) => {
     return [];
   }
 };
+
+export async function fetchEpisodes(page: number = 1, name?: string) {
+  const queryParams = new URLSearchParams();
+  queryParams.set("page", page.toString());
+  if (name) {
+    queryParams.set("name", name);
+  }
+
+  try {
+    const response = await fetch(`https://rickandmortyapi.com/api/episode?${queryParams.toString()}`, {
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      throw new Error(`Помилка завантаження епізодів: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Помилка отримання даних епізодів:", error);
+    return null;
+  }
+}
+
+export const fetchLocations = async (page: number, name: string) => {
+  try {
+    const query = new URLSearchParams();
+    query.set("page", String(page));
+    if (name) query.set("name", name);
+
+    const url = `https://rickandmortyapi.com/api/location?${query.toString()}`;
+    console.log("Fetching locations from:", url);
+
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      if (response.status === 404) {
+        console.warn(`Локації не знайдено за запитом: ${query.toString()}`);
+        return { results: [], info: { pages: 1 } };
+      }
+      throw new Error(`Помилка завантаження локацій: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Помилка отримання даних локацій:", error);
+    return null;
+  }
+};
