@@ -1,0 +1,10 @@
+:root {
+    --text-color: #000;
+    --bg-color-sup: #d2d2d2;
+    --bg-color: #f4f4f450;
+    --bg-hover-color: #ffffff;
+    --online-status: #00da00;
+    --font-size: 16px;
+    --btn-transition: all 0.2s ease-out;
+    --bg-color-message: #ff3f3f;
+}

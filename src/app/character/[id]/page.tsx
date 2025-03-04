@@ -3,10 +3,6 @@ import Button from "@/components/Button";
 import { fetchCharacterById, fetchEpisodesByIds } from "@/utils/fetchData";
 import Image from "next/image";
 
-// interface PageProps {
-//   params: { id: string };
-//   searchParams?: { showEpisodes?: string };
-// }
 
 interface Character {
   id: number;

@@ -1,8 +1,8 @@
-import Navbar from "../components/Navbar";
-import "../styles/globals.css";
-import { LoaderProvider } from "../utils/contextLoader";
-import Loader from "../components/Loader";
-import SpaceBackground from "../components/SpaceBgr/SpaceBackground";
+import Navbar from "@/components/Navbar";
+import "@/styles/globals.css";
+import { LoaderProvider } from "@/utils/contextLoader";
+import Loader from "@/components/Loader";
+import SpaceBackground from "@/components/SpaceBgr/SpaceBackground";
 
 export const metadata = {
   title: "Rick and Morty",
@@ -11,24 +11,19 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="uk">
       <body id="app-container">
         <SpaceBackground />
         <LoaderProvider>
           <Navbar />
-          <div>
-            <Loader />
-            {children}
-          </div>
+          <Loader />
+          {children}
         </LoaderProvider>
       </body>
     </html>
   );
 }
+
 

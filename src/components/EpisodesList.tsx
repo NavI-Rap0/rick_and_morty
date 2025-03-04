@@ -1,5 +1,5 @@
 import React from "react";
-import EpisodeCard from "./EpisodeCard";
+import Card from "./Card";
 
 type Episode = {
   id: number;
@@ -16,8 +16,9 @@ export default function EpisodesList({ episodes }: EpisodesListProps) {
   return (
     <div className="mt-4 w-full max-w-3xl">
       {episodes.map((episode) => (
-        <EpisodeCard key={episode.id} {...episode} />
+        <Card key={episode.id} {...episode} />
       ))}
     </div>
   );
 }
+

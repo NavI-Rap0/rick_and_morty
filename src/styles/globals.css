@@ -1,6 +1,11 @@
+@import "./variables.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
 
 /* Animations */
 @keyframes spin {
@@ -107,8 +112,6 @@ body {
 }
 
 
-
-/* кнопка */
 @keyframes glowing {
   0% { background-position: 0 0; }
   50% { background-position: 400% 0; }
@@ -119,6 +122,15 @@ body {
   animation: glowing 20s linear infinite;
 }
 
+
+.neon-text {
+  text-shadow: 0 0 10px #1bafff, 0 0 20px #9beeff, 0 0 40px #ffffff;
+}
+
+.bg-neon-green {
+  background-color: #00ffcc;
+  animation: pulse 2s infinite alternate;
+}
 
 
 

@@ -37,9 +37,6 @@ interface FilterProps {
   };
 }
 
-/**
- * Формує URL для переходу до /characters із застосованими фільтрами.
- */
 function buildFilterUrl(
   currentFilters: FilterProps["currentFilters"],
   category: "status" | "species" | "gender",
@@ -47,19 +44,19 @@ function buildFilterUrl(
 ): string {
   const newFilters = { ...currentFilters };
 
-  // Якщо значення вже встановлено – видаляємо його, інакше додаємо
+
   if (newFilters[category] === value) {
     delete newFilters[category];
   } else {
     newFilters[category] = value;
   }
 
-  // Формуємо валідний об'єкт фільтрів
+
   const validFilters = Object.fromEntries(
     Object.entries(newFilters).filter(([, val]) => val !== undefined && val !== "")
   );
 
-  // Формуємо рядок запиту
+
   const query = new URLSearchParams(validFilters).toString();
   return `/characters${query ? "?" + query : ""}`;
 }
@@ -85,7 +82,7 @@ export default function Filter({ currentFilters }: FilterProps) {
   };
 
   return (
-    <div className="flex flex-row gap-4 p-4 bg-transparent rounded-md w-full items-center">
+    <div className="flex flex-row gap-4 p-4 bg-transparent rounded-md items-center ">
       <CustomDropdown
         label="Статус"
         options={Object.values(Statuses)}

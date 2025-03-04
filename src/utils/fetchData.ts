@@ -1,28 +1,12 @@
 const BASE_URL = "https://rickandmortyapi.com/api";
 
 /**
- * Фетч персонажів із перевіркою середовища виконання.
+ * Фетч персонажів (SSR)
  */
 export async function fetchCharacters(
   page: number = 1,
   filters: Record<string, string | undefined>
 ) {
-  if (typeof window === "undefined") {
-    // Виконання на сервері (SSR)
-    return fetchCharactersServer(page, filters);
-  } else {
-    // Виконання на клієнті (CSR)
-    return fetchCharactersClient(page, filters);
-  }
-}
-
-/**
- * Фетч персонажів у серверному середовищі (Next.js API, SSR)
- */
-async function fetchCharactersServer(
-  page: number,
-  filters: Record<string, string | undefined>
-) {
   const queryParams = new URLSearchParams(
     Object.fromEntries(Object.entries(filters).filter(([, value]) => value !== undefined)) as Record<string, string>
   );
@@ -30,52 +14,24 @@ async function fetchCharactersServer(
 
   const url = `${BASE_URL}/character/?${queryParams.toString()}`;
 
-  console.log("Fetching from (server):", url);
+  console.log("Fetching characters from (server):", url);
 
   try {
-    const response = await fetch(url, { cache: "no-store" }); // Next.js серверний fetch
+    const response = await fetch(url, { cache: "no-store" }); // SSR fetch
     if (!response.ok) {
       throw new Error(`Помилка завантаження: ${response.status}`);
     }
     return await response.json();
   } catch (error) {
-    console.error("Помилка отримання даних персонажів (server):", error);
+    console.error("Помилка отримання даних персонажів:", error);
     return null;
   }
 }
 
 /**
- * Фетч персонажів у клієнтському середовищі (CSR)
+ * Фетч персонажа за ID (SSR)
  */
-async function fetchCharactersClient(
-  page: number,
-  filters: Record<string, string | undefined>
-) {
-  const queryParams = new URLSearchParams(
-    Object.fromEntries(Object.entries(filters).filter(([, value]) => value !== undefined)) as Record<string, string>
-  );
-  queryParams.set("page", page.toString());
-
-  const url = `${BASE_URL}/character/?${queryParams.toString()}`;
-
-  console.log("Fetching from (client):", url);
-
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Помилка завантаження: ${response.status}`);
-    }
-    return await response.json();
-  } catch (error) {
-    console.error("Помилка отримання даних персонажів (client):", error);
-    return null;
-  }
-}
-
-/**
- * Фетч персонажа за ID (підходить для SSR та CSR)
- */
-export const fetchCharacterById = async (id: string) => {
+export async function fetchCharacterById(id: string) {
   try {
     const response = await fetch(`${BASE_URL}/character/${id}`, { cache: "no-store" });
     if (!response.ok) {
@@ -86,9 +42,12 @@ export const fetchCharacterById = async (id: string) => {
     console.error("Помилка отримання даних персонажа:", error);
     return null;
   }
-};
+}
 
-export const fetchEpisodesByIds = async (episodeUrls: string[]) => {
+/**
+ * Фетч епізодів за ID (SSR)
+ */
+export async function fetchEpisodesByIds(episodeUrls: string[]) {
   if (episodeUrls.length === 0) return [];
 
   const episodeIds = episodeUrls.map((url) => url.split("/").pop()).join(",");
@@ -98,13 +57,16 @@ export const fetchEpisodesByIds = async (episodeUrls: string[]) => {
       throw new Error(`Помилка завантаження епізодів: ${response.status}`);
     }
     const data = await response.json();
-    return Array.isArray(data) ? data : [data]; // API повертає масив або один об'єкт
+    return Array.isArray(data) ? data : [data];
   } catch (error) {
     console.error("Помилка отримання даних епізодів:", error);
     return [];
   }
-};
+}
 
+/**
+ * Фетч списку епізодів (SSR)
+ */
 export async function fetchEpisodes(page: number = 1, name?: string) {
   const queryParams = new URLSearchParams();
   queryParams.set("page", page.toString());
@@ -113,9 +75,7 @@ export async function fetchEpisodes(page: number = 1, name?: string) {
   }
 
   try {
-    const response = await fetch(`https://rickandmortyapi.com/api/episode?${queryParams.toString()}`, {
-      cache: "no-store",
-    });
+    const response = await fetch(`${BASE_URL}/episode?${queryParams.toString()}`, { cache: "no-store" });
 
     if (!response.ok) {
       throw new Error(`Помилка завантаження епізодів: ${response.status}`);
@@ -128,16 +88,19 @@ export async function fetchEpisodes(page: number = 1, name?: string) {
   }
 }
 
-export const fetchLocations = async (page: number, name: string) => {
+/**
+ * Фетч локацій (SSR)
+ */
+export async function fetchLocations(page: number, name: string) {
   try {
     const query = new URLSearchParams();
     query.set("page", String(page));
     if (name) query.set("name", name);
 
-    const url = `https://rickandmortyapi.com/api/location?${query.toString()}`;
+    const url = `${BASE_URL}/location?${query.toString()}`;
     console.log("Fetching locations from:", url);
 
-    const response = await fetch(url);
+    const response = await fetch(url, { cache: "no-store" });
 
     if (!response.ok) {
       if (response.status === 404) {
@@ -152,4 +115,4 @@ export const fetchLocations = async (page: number, name: string) => {
     console.error("Помилка отримання даних локацій:", error);
     return null;
   }
-};
+}
