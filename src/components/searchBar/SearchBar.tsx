@@ -2,38 +2,25 @@
 import { useState, useRef } from "react";
 import SearchButton from "../searchButton/SearchButton";
 import styles from "./SearchBar.module.css";
+import { handleSearch, handleClear } from "../../helpers/searchHelpers";
 
 type SearchBarProps = {
   onSearch: (query: string) => void;
-  query?: string; // Додано query як необов'язковий пропс
 };
 
 export default function SearchBar({ onSearch }: SearchBarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const searchIconRef = useRef<HTMLButtonElement | null>(null);
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim() !== "") {
-      onSearch(searchQuery);
-    }
-  };
-
-  const handleClear = () => {
-    setSearchQuery("");
-    setIsOpen(false);
-    setTimeout(() => searchIconRef.current?.focus(), 10);
-  };
-
-  const handleOpen = () => {
-    setIsOpen(true);
-  };
+  const searchIconRef = useRef<HTMLButtonElement>(null!); // Виправлено типізацію
 
   return (
     <label className={`${styles.label} ${isOpen ? styles.open : ""}`}>
       {isOpen ? (
-        <button type="button" className={styles.closeButton} onClick={handleClear}>
+        <button
+          type="button"
+          className={styles.closeButton}
+          onClick={() => handleClear(setSearchQuery, setIsOpen, searchIconRef)}
+        >
           <svg xmlns="http://www.w3.org/2000/svg" width="1.8rem" height="1.8rem" viewBox="0,0,256,256">
             <g fill="var(--primary-color)" className={styles.svgIcon}>
               <g transform="scale(8,8)">
@@ -43,7 +30,7 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
           </svg>
         </button>
       ) : (
-        <button type="button" className={styles.button} onClick={handleOpen} ref={searchIconRef}>
+        <button type="button" className={styles.button} onClick={() => setIsOpen(true)} ref={searchIconRef}>
           <svg viewBox="0 0 17.7 17.7" width="1.8rem" height="1.8rem">
             <path fill="currentColor" d="M12.6 11.2C13.5 10 14 8.6 14 7c0-3.9-3.1-7-7-7S0 3.1 0 7s3.1 7 7 7c1.6 0 3-.5 4.2-1.4l5.1 5.1 1.4-1.4-5.1-5.1zM2 7c0-2.8 2.2-5 5-5s5 2.2 5 5-2.2 5-5 5-5-2.2-5-5z"/>
           </svg>
@@ -51,19 +38,20 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
       )}
 
       {isOpen && (
-        <form onSubmit={handleSearch} className={styles.searchForm}>
+        <form onSubmit={(event) => handleSearch(event, searchQuery, onSearch)} className={styles.searchForm}>
           <input
             type="text"
             placeholder="Пошук..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(event) => setSearchQuery(event.target.value)}
             className={styles.input}
             autoFocus
           />
-          <SearchButton onClick={handleSearch} />
+          <SearchButton onClick={(event) => handleSearch(event, searchQuery, onSearch)} />
         </form>
       )}
     </label>
   );
 }
+
 

@@ -2,25 +2,18 @@
 import { useState } from "react";
 import Image from "next/image";
 import MessageButton from "@/components/messageButton/MessageButton";
-import { typeText } from "@/utils/typeText";
+import { typeText } from "@/helpers/typeText";
+import { startTextAnimation } from "@/helpers/textAnimationHelpers";
 
 export default function AnimatedText({ children }: { children?: string }) {
   const [visibleText, setVisibleText] = useState("");
   const [started, setStarted] = useState(false);
   const [showRick, setShowRick] = useState(false);
 
-  const startAnimation = () => {
-    if (!children) return;
-    setStarted(true);
-    setShowRick(true);
-
-    typeText(children, setVisibleText, () => setShowRick(false));
-  };
-
   return (
     <div className="text-center">
       {!started && (
-        <div onClick={startAnimation}>
+        <div onClick={() => startTextAnimation(children, setStarted, setShowRick, setVisibleText, typeText)}>
           <MessageButton />
         </div>
       )}

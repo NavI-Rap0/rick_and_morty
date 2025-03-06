@@ -1,5 +1,5 @@
 import { fetchLocations } from "@/utils/fetchData";
-import { buildLocationsPageUrl } from "@/utils/helpers";
+import { buildLocationsPageUrl } from "@/helpers/pagesHelpers";
 import SearchHandler from "@/components/SearchHandler";
 import Pagination from "@/components/Pagination";
 import SomeError from "@/components/SomeError";

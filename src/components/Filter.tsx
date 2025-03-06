@@ -4,62 +4,9 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import CustomDropdown from "./CustomDropdown";
 import SearchBar from "./searchBar/SearchBar";
-
-enum Statuses {
-  Alive = "alive",
-  Dead = "dead",
-  Unknown = "unknown",
-}
-
-enum Species {
-  Alien = "alien",
-  Animal = "animal",
-  Robot = "robot",
-  Human = "human",
-  Humanoid = "humanoid",
-  MythologicalCreature = "mythological creature",
-  Unknown = "unknown",
-}
-
-enum Genders {
-  Male = "male",
-  Female = "female",
-  Genderless = "genderless",
-  Unknown = "unknown",
-}
-
-interface FilterProps {
-  currentFilters: {
-    status?: string;
-    species?: string;
-    gender?: string;
-    name?: string;
-  };
-}
-
-function buildFilterUrl(
-  currentFilters: FilterProps["currentFilters"],
-  category: "status" | "species" | "gender",
-  value: string
-): string {
-  const newFilters = { ...currentFilters };
-
-
-  if (newFilters[category] === value) {
-    delete newFilters[category];
-  } else {
-    newFilters[category] = value;
-  }
-
-
-  const validFilters = Object.fromEntries(
-    Object.entries(newFilters).filter(([, val]) => val !== undefined && val !== "")
-  );
-
-
-  const query = new URLSearchParams(validFilters).toString();
-  return `/characters${query ? "?" + query : ""}`;
-}
+import { Statuses, Species, Genders } from "@/utils/constants";
+import { buildFilterUrl } from "@/helpers/filterHelpers";
+import { FilterProps } from "@/utils/types";
 
 export default function Filter({ currentFilters }: FilterProps) {
   const [isClient, setIsClient] = useState(false);
@@ -82,7 +29,7 @@ export default function Filter({ currentFilters }: FilterProps) {
   };
 
   return (
-    <div className="flex flex-row gap-4 p-4 bg-transparent rounded-md items-center ">
+    <div className="flex flex-row gap-4 p-4 bg-transparent rounded-md items-center">
       <CustomDropdown
         label="Статус"
         options={Object.values(Statuses)}
@@ -108,3 +55,4 @@ export default function Filter({ currentFilters }: FilterProps) {
     </div>
   );
 }
+

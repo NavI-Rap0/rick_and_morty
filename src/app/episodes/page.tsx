@@ -1,5 +1,5 @@
 import { fetchEpisodes } from "@/utils/fetchData";
-import { buildEpisodesPageUrl } from "@/utils/helpers";
+import { buildEpisodesPageUrl } from "@/helpers/pagesHelpers";
 import SearchHandler from "@/components/SearchHandler";
 import Pagination from "@/components/Pagination";
 import SomeError from "@/components/SomeError";

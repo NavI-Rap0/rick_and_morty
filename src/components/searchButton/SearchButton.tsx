@@ -1,8 +1,7 @@
 import React from "react";
-import "./SearchButton.css"; // Стилі для кнопки пошуку
+import "./SearchButton.css";
 
-// Тепер onClick приймає параметр e: React.FormEvent
-const SearchButton = ({ onClick }: { onClick: (e: React.FormEvent) => void }) => {
+const SearchButton = ({ onClick }: { onClick: (event: React.FormEvent) => void }) => {
   return (
     <button className="search-button" onClick={onClick}>
       Пошук

@@ -83,7 +83,7 @@
 }
 
 .closeButton svg {
-    pointer-events: none; /* Забезпечує, щоб клік реєструвався на всій кнопці */
+    pointer-events: none;
 }
 
 .svgIcon {

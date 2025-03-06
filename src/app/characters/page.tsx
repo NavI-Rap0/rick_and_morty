@@ -1,5 +1,5 @@
 import { fetchCharacters } from "@/utils/fetchData";
-import { buildFilters, buildPageUrl } from "@/utils/helpers";
+import { buildFilters, buildPageUrl } from "@/helpers/pagesHelpers";
 import CharacterCardsList from "@/components/CharacterCardsList";
 import Pagination from "@/components/Pagination";
 import Filter from "@/components/Filter";

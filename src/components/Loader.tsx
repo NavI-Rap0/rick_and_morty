@@ -1,6 +1,8 @@
-"use client"; // Додаємо директиву "use client"
+// still in progress
 
-import { useLoader } from "../utils/contextLoader"; // імпортуємо useLoader
+"use client"; 
+
+import { useLoader } from "../utils/contextLoader";
 
 export default function Loader() {
   const { loading } = useLoader();

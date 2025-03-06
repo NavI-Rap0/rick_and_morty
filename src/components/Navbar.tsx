@@ -5,7 +5,6 @@ const Navbar = () => {
   return (
     <nav className="relative w-screen">
       <div className="flex items-center justify-between w-full h-32 px-0">
-        {/* Логотип */}
         <div className="flex items-center">
           <Image
             src="/logo2.png"
@@ -17,7 +16,6 @@ const Navbar = () => {
           />
         </div>
 
-        {/* Посилання */}
         <ul className="flex flex-1 justify-around items-center text-2xl gap-8">
           {["Home", "Characters", "Episodes", "Locations"].map(
             (link, index) => (

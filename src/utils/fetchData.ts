@@ -1,3 +1,5 @@
+// still in progress
+
 const BASE_URL = "https://rickandmortyapi.com/api";
 
 /**

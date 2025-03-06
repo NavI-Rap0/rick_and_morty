@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import styles from "./CharacterCard.module.css"; // Стилі підключені тут
+import styles from "./CharacterCard.module.css";
 
 type CharacterProps = {
   id: number;
@@ -30,7 +30,6 @@ const CharacterCard: React.FC<CharacterProps> = ({
   return (
     <div className={styles.container} onClick={handleCardClick}>
       <div className={styles.canvas}>
-        {/* Трекери для ефекту нахилу */}
         {[...Array(25)].map((_, i) => (
           <div key={i} className={`${styles.tracker} ${styles[`tr-${i + 1}`]}`}></div>
         ))}

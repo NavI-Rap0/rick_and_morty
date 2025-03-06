@@ -1,3 +1,5 @@
+// still in progress
+
 export default function Locations() {
     return (
       <main className="flex flex-col items-center justify-center h-screen">
