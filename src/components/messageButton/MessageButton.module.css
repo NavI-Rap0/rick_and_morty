@@ -1,31 +1,65 @@
+@keyframes pulse-waves-green {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 255, 0, 0.6), 0 0 0 0 rgba(0, 255, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 15px rgba(0, 255, 0, 0), 0 0 0 30px rgba(0, 255, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 255, 0, 0), 0 0 0 0 rgba(0, 255, 0, 0);
+  }
+}
+@keyframes pulse-waves-red {
+  0% {
+    box-shadow:  0 0 0 0 rgba(13, 255, 9, 0.437), 0 0 0 0 rgba(37, 52, 255, 0.426), 0 0 0 0 rgba(255, 9, 9, 0.256) , 0 0 0 0 rgba(239, 255, 9, 0.158);
+  }
+  50% {
+    box-shadow: 0 0 0 20px rgba(0, 255, 0, 0), 0 0 0 40px rgba(0, 255, 0, 0) , 0 0 0 55px rgba(0, 255, 0, 0) , 0 0 0 65px rgba(0, 255, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 255, 0, 0), 0 0 0 0 rgba(0, 255, 0, 0), 0 0 0 0 rgba(0, 255, 0, 0) , 0 0 0 0 rgba(0, 255, 0, 0);
+  }
+}
 
-  .buttonMessage {
-    margin:  0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font: 400 var(--font-size) Helvetica Neue, sans-serif;
-    box-shadow: 0 0 2.17px rgba(0, 0, 0, 0.05),
-      0 1.75px 6px rgba(0, 0, 0, 0.07),
-      0 3.63px 14.47px rgba(0, 0, 0, 0.09),
-      0 22px 48px rgba(0, 0, 0, 0.14);
-    background-color: var(--bg-color);
-    border-radius: 68px;
-    cursor: pointer;
-    padding: 6px 10px 6px 6px;
-    width: fit-content;
-    height: 40px;
-    border: 0;
-    overflow: hidden;
-    position: relative;
-    transition: var(--btn-transition);
-  }
-  
-  .buttonMessage:hover {
-    height: 56px;
-    padding: 8px 20px 8px 8px;
-    background-color: var(--bg-hover-color);
-  }
+@keyframes shake {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(1deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-1deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.buttonMessage {
+  animation: shake 0.2s ease-out infinite, pulse-waves-red 3s infinite ease-out;
+  perspective: 100px;
+  margin:  0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font: 400 var(--font-size) Helvetica Neue, sans-serif;
+  box-shadow: 0 0 2.17px rgba(0, 0, 0, 0.05),
+    0 1.75px 6px rgba(0, 0, 0, 0.07),
+    0 3.63px 14.47px rgba(0, 0, 0, 0.09),
+    0 22px 48px rgba(0, 0, 0, 0.14);
+  background-color: var(--bg-color);
+  border-radius: 68px;
+  cursor: pointer;
+  padding: 6px 10px 6px 6px;
+  width: fit-content;
+  height: 40px;
+  border: 0;
+  overflow: hidden;
+  position: relative;
+  transition: var(--btn-transition);
+}
+
+.buttonMessage:hover {
+  height: 56px;
+  padding: 8px 20px 8px 8px;
+  background-color: var(--bg-hover-color);
+  animation: pulse-waves-green 2s infinite ease-out;
+}
+
   
   .buttonMessage:active {
     transform: scale(0.99);

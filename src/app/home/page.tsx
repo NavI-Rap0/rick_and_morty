@@ -8,7 +8,7 @@ export default function HomePage() {
       {/* Ліва частина */}
       <div className="relative z-10 w-[50vw] text-center">
         <AnimatedText>
-          {"Congratulations, you miserable bag of molecules! I've messed up again, and now you're stuck between dimensions. The only way out is to explore the chaos of this universe!"}
+          {"Congratulations, you miserable bag of molecules! I've messed up again, and now you're stuck between dimensions. The only way out is to explore the chaos of this universe!     "}
         </AnimatedText>
       </div>
 
