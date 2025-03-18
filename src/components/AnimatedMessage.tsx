@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import MessageButton from "@/components/messageButton/MessageButton";
+import MessageButton from "@/components/MessageButton/MessageButton";
 import { typeText } from "@/helpers/typeText";
 import { startTextAnimation } from "@/helpers/textAnimationHelpers";
 

@@ -9,6 +9,43 @@
 
 /* Animations */
 
+@keyframes pulse-waves-green {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 255, 0, 0.6), 0 0 0 0 rgba(0, 255, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 15px rgba(0, 255, 0, 0), 0 0 0 30px rgba(0, 255, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 255, 0, 0), 0 0 0 0 rgba(0, 255, 0, 0);
+  }
+}
+@keyframes pulse-waves-red {
+  0% {
+    box-shadow:  0 0 0 0 rgba(13, 255, 9, 0.437), 0 0 0 0 rgba(37, 52, 255, 0.426), 0 0 0 0 rgba(255, 9, 9, 0.256) , 0 0 0 0 rgba(239, 255, 9, 0.158);
+  }
+  50% {
+    box-shadow: 0 0 0 20px rgba(0, 255, 0, 0), 0 0 0 40px rgba(0, 255, 0, 0) , 0 0 0 55px rgba(0, 255, 0, 0) , 0 0 0 65px rgba(0, 255, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 255, 0, 0), 0 0 0 0 rgba(0, 255, 0, 0), 0 0 0 0 rgba(0, 255, 0, 0) , 0 0 0 0 rgba(0, 255, 0, 0);
+  }
+}
+
+@keyframes shake {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(1deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-1deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes active-status {
+  0% { background-color: var(--online-status); }
+  33.33% { background-color: #93e200; }
+  66.33% { background-color: #93e200; }
+  100% { background-color: var(--online-status); }
+}
 
 @keyframes pulseColors {
   0% {

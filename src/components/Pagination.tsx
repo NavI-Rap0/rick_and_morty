@@ -1,4 +1,4 @@
-// знаю що виглядає жахливо, але я не знаю як краще зробити
+// знаю що виглядає жахливо, але я ще не знаю як краще зробити
 
 import { PaginationProps } from '../utils/types';
 import { createPageRange } from '../helpers/paginationHelpers';

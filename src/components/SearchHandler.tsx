@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import SearchBar from "./searchBar/SearchBar";
+import SearchBar from "./SearchBar";
 
 export default function SearchHandler() {
   const router = useRouter();

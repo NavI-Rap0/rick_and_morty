@@ -19,16 +19,21 @@ export async function fetchCharacters(
   console.log("Fetching characters from (server):", url);
 
   try {
-    const response = await fetch(url, { cache: "no-store" }); // SSR fetch
+    const response = await fetch(url, { cache: "no-store" });
     if (!response.ok) {
+      if (response.status === 404) {
+        console.warn(`Персонажів не знайдено за запитом: ${queryParams.toString()}`);
+        return { results: [], info: { pages: 1 } };
+      }
       throw new Error(`Помилка завантаження: ${response.status}`);
     }
     return await response.json();
   } catch (error) {
     console.error("Помилка отримання даних персонажів:", error);
-    return null;
+    return { results: [], info: { pages: 1 } }; 
   }
 }
+
 
 /**
  * Фетч персонажа за ID (SSR)

@@ -33,6 +33,14 @@ export default async function CharacterPage({ params, searchParams }: { params: 
 
   const episodes: Episode[] = showEpisodes ? await fetchEpisodesByIds(character.episode) : [];
 
+  const characterInfo = [
+    { label: "Статус", value: character.status },
+    { label: "Вид", value: character.species },
+    { label: "Стать", value: character.gender },
+    { label: "Місце народження", value: character.origin.name },
+    { label: "Останнє відоме місцезнаходження", value: character.location.name },
+  ];
+
   return (
     <div className="flex justify-center items-center">
       <div className="relative w-[70vw] max-w-2xl flex flex-col items-center gap-6 shadow-lg rounded-lg p-8">
@@ -51,12 +59,12 @@ export default async function CharacterPage({ params, searchParams }: { params: 
         </div>
         <h1 className="text-2xl font-bold text-center">{character.name}</h1>
         <div className="flex flex-col gap-2 text-center">
-          <p><strong>Статус:</strong> {character.status}</p>
-          <p><strong>Вид:</strong> {character.species}</p>
-          <p><strong>Стать:</strong> {character.gender}</p>
-          <p><strong>Місце народження:</strong> {character.origin.name}</p>
-          <p><strong>Останнє відоме місцезнаходження:</strong> {character.location.name}</p>
-        </div>
+  {characterInfo.map(({ label, value }) => (
+    <p key={label}>
+      <strong>{label}:</strong> {value}
+    </p>
+  ))}
+</div>
 
         <Button href={`?showEpisodes=${showEpisodes ? "false" : "true"}`} className="mt-4">
           {showEpisodes ? "Приховати епізоди" : "Показати епізоди"}

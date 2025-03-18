@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import CustomDropdown from "./CustomDropdown";
-import SearchBar from "./searchBar/SearchBar";
+import SearchBar from "./SearchBar";
 import { Statuses, Species, Genders } from "@/utils/constants";
 import { buildFilterUrl } from "@/helpers/filterHelpers";
 import { FilterProps } from "@/utils/types";
