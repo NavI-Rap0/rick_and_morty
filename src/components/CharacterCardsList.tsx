@@ -1,5 +1,5 @@
 import React from "react";
-import CharacterCard from "./CharacterCatd/CharacterCard";
+import CharacterCard from "./CharacterCard/CharacterCard";
 
 type Character = {
   id: number;

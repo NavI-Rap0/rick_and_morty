@@ -29,6 +29,12 @@
   100% { transform: rotate(0deg); }
 }
 
+@keyframes active-status {
+  0% { background-color: var(--online-status); }
+  33.33% { background-color: #93e200; }
+  66.33% { background-color: #93e200; }
+  100% { background-color: var(--online-status); }
+}
 .buttonMessage {
   animation: shake 0.2s ease-out infinite, pulse-waves-red 3s infinite ease-out;
   perspective: 100px;
@@ -176,10 +182,4 @@
     border-radius: 20px;
   }
   
-  @keyframes active-status {
-    0% { background-color: var(--online-status); }
-    33.33% { background-color: #93e200; }
-    66.33% { background-color: #93e200; }
-    100% { background-color: var(--online-status); }
-  }
   

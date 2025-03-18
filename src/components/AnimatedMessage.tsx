@@ -5,15 +5,32 @@ import MessageButton from "@/components/messageButton/MessageButton";
 import { typeText } from "@/helpers/typeText";
 import { startTextAnimation } from "@/helpers/textAnimationHelpers";
 
-export default function AnimatedText({ children }: { children?: string }) {
+interface AnimatedTextProps {
+  onFinish?: () => void;
+  setStarted: (value: boolean) => void;
+}
+
+export default function AnimatedText({ onFinish, setStarted }: AnimatedTextProps) {
   const [visibleText, setVisibleText] = useState("");
-  const [started, setStarted] = useState(false);
   const [showRick, setShowRick] = useState(false);
 
   return (
     <div className="text-center">
-      {!started && (
-        <div onClick={() => startTextAnimation(children, setStarted, setShowRick, setVisibleText, typeText)}>
+      {!visibleText && (
+        <div
+          className="flex justify-center items-center h-full"
+          onClick={() => {
+            setStarted(true);
+            startTextAnimation(
+              "Congratulations, you miserable bag of molecules! I've messed up again, and now you're stuck between dimensions. The only way out is to explore the chaos of this universe!",
+              () => setStarted(true),
+              setShowRick,
+              setVisibleText,
+              typeText,
+              onFinish
+            );
+          }}
+        >
           <MessageButton />
         </div>
       )}

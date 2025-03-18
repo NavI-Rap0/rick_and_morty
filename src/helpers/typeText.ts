@@ -22,7 +22,7 @@ export const typeText = (
         typeSound.pause();
         onFinish();
       }
-    }, 49);
+    }, 51);
   };
   
   

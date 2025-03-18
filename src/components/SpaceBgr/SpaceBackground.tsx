@@ -5,8 +5,11 @@ import styles from "./SpaceBackground.module.css";
 
 export default function SpaceBackground() {
   return (
-    <div className={styles.space}>
-      <AnimatedGif />
+    <div className={styles.conteiner}>
+      <div className={styles.space}>
+        <AnimatedGif />
+      </div>
     </div>
+
   );
 }

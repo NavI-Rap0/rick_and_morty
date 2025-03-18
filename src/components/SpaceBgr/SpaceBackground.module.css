@@ -7,9 +7,13 @@
     }
   }
   
+  .conteiner{
+    max-width: 100vw;
+    max-height: 100vh;
+  }
   .space {
     z-index: -100;
-    position: absolute;
+    position: fixed;
     width: 300vw;
     height: 300vh;
     top: 50%;

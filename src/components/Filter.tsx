@@ -29,27 +29,31 @@ export default function Filter({ currentFilters }: FilterProps) {
   };
 
   return (
-    <div className="flex flex-row gap-4 p-4 bg-transparent rounded-md items-center">
-      <CustomDropdown
-        label="Статус"
-        options={Object.values(Statuses)}
-        selectedOption={currentFilters?.status}
-        onSelect={(status) => handleSelect("status", status)}
-      />
+    <div className="flex flex-col lg:flex-row lg:justify-center gap-4 p-4 bg-transparent rounded-md items-center lg:max-w-[1050px] mx-auto">
+      <div className="flex flex-col sm:flex-row justify-center gap-4 p-4 bg-transparent rounded-md items-center max-w-[750px] mx-auto">
 
-      <CustomDropdown
-        label="Вид"
-        options={Object.values(Species)}
-        selectedOption={currentFilters?.species}
-        onSelect={(species) => handleSelect("species", species)}
-      />
+        <CustomDropdown
+          label="Статус"
+          options={Object.values(Statuses)}
+          selectedOption={currentFilters?.status}
+          onSelect={(status) => handleSelect("status", status)}
+        />
 
-      <CustomDropdown
-        label="Стать"
-        options={Object.values(Genders)}
-        selectedOption={currentFilters?.gender}
-        onSelect={(gender) => handleSelect("gender", gender)}
-      />
+        <CustomDropdown
+          label="Вид"
+          options={Object.values(Species)}
+          selectedOption={currentFilters?.species}
+          onSelect={(species) => handleSelect("species", species)}
+        />
+
+        <CustomDropdown
+          label="Стать"
+          options={Object.values(Genders)}
+          selectedOption={currentFilters?.gender}
+          onSelect={(gender) => handleSelect("gender", gender)}
+        />
+      </div>
+
 
       <SearchBar onSearch={handleSearch} />
     </div>
