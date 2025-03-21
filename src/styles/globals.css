@@ -74,6 +74,8 @@
  }
 }
 
+/* body styles */
+
 html,
 body {
   height: 100%;
@@ -93,6 +95,8 @@ body {
   flex-direction: column;
 
 }
+
+/* scroll styles */
 
 #app-container {
   flex-grow: 1;
@@ -125,6 +129,8 @@ body {
 }
 
 
+/* nav styles */
+
 .group:hover .animate-pulse-colors {
   animation: pulseColors 2s ease-in-out infinite;
 }
@@ -156,7 +162,7 @@ body {
   animation: pulse 2s infinite alternate;
 }
 
-/* бургер */
+/* бургер styles*/
 
 .hamburger {
   cursor: pointer;

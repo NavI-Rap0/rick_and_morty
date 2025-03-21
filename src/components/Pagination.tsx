@@ -1,14 +1,17 @@
-// знаю що виглядає жахливо, але я ще не знаю як краще зробити
-
-import { PaginationProps } from '../utils/types';
-import { createPageRange } from '../helpers/paginationHelpers';
-import { PAGE_DIRECTIONS } from '../utils/constants';
+import { Filters } from "@/utils/types";
+import { createPageRange } from "../helpers/paginationHelpers";
+import { PAGE_DIRECTIONS } from "../utils/constants";
 
 export default function Pagination({
   currentPage,
   totalPages,
-  onPageChange,
+  buildPageUrl,
 }: PaginationProps) {
+  if (typeof buildPageUrl !== "function") {
+    console.error("buildPageUrl is not a function");
+    return null;
+  }
+
   const pages = createPageRange(currentPage, totalPages);
 
   return (
@@ -18,38 +21,23 @@ export default function Pagination({
           return (
             <a
               key={index}
-              href={onPageChange(page)}
-              className={`px-3 py-1 rounded ${
-                page === currentPage
-                  ? "bg-blue-700 text-white font-bold"
-                  : "bg-gray-300 text-gray-700"
-              } hover:scale-110 transition-all duration-200`}
+              href={buildPageUrl({}, page)}
+              className={`w-10 h-10 flex items-center justify-center rounded-full text-lg font-bold transition-all duration-200
+                ${page === currentPage ? "bg-blue-700 text-white" : "bg-gray-300/50 text-gray-700 hover:bg-gray-300/80 hover:scale-110"}`}
             >
-              {page === currentPage ? `${page}` : page}
+              {page}
             </a>
           );
         }
 
-        if (page === PAGE_DIRECTIONS.PREV) {
+        if (page === PAGE_DIRECTIONS.PREV || page === PAGE_DIRECTIONS.NEXT) {
           return (
             <a
               key={index}
-              href={onPageChange(currentPage - 1)}
-              className="px-3 py-1 rounded bg-gray-300 text-gray-700 font-bold hover:scale-110 transition-all duration-200"
+              href={buildPageUrl({}, page === PAGE_DIRECTIONS.PREV ? currentPage - 1 : currentPage + 1)}
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-300/50 text-gray-700 font-bold hover:bg-gray-300/80 hover:scale-110 transition-all duration-200"
             >
-              {PAGE_DIRECTIONS.PREV}
-            </a>
-          );
-        }
-
-        if (page === PAGE_DIRECTIONS.NEXT) {
-          return (
-            <a
-              key={index}
-              href={onPageChange(currentPage + 1)}
-              className="px-3 py-1 rounded bg-gray-300 text-gray-700 font-bold hover:scale-110 transition-all duration-200"
-            >
-              {PAGE_DIRECTIONS.NEXT}
+              {page === PAGE_DIRECTIONS.PREV ? "<" : ">"}
             </a>
           );
         }
@@ -57,7 +45,7 @@ export default function Pagination({
         return (
           <span
             key={index}
-            className="px-3 py-1 text-gray-500 select-none"
+            className="w-10 h-10 flex items-center justify-center text-gray-500 select-none"
             aria-hidden="true"
           >
             {page}
@@ -67,3 +55,9 @@ export default function Pagination({
     </div>
   );
 }
+
+export type PaginationProps = {
+  currentPage: number;
+  totalPages: number;
+  buildPageUrl: (filters: Filters, page: number) => string;
+};

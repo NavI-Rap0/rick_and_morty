@@ -4,6 +4,7 @@ import CharacterCardsList from "@/components/CharacterCardsList";
 import Pagination from "@/components/Pagination";
 import Filter from "@/components/Filter";
 import SomeError from "@/components/SomeError";
+import NoResults from "@/components/NoResults";
 
 interface SearchParams {
   page?: string;
@@ -18,25 +19,28 @@ export default async function CharactersPage({
 }: {
   searchParams?: Promise<SearchParams>;
 }) {
-  const awaitedSearchParams = await searchParams;
-  const currentPage = parseInt(awaitedSearchParams?.page ?? "1", 10);
-  const filters = buildFilters(awaitedSearchParams);
-  const data = await fetchCharacters(currentPage, filters);
-  const { results: characters, info } = data;
+  const params = await searchParams;
+  const page = Number(params?.page) || 1;
+  const filters = buildFilters(params);
 
-  if (!data || !data.results || data.results.length === 0) {
+  try {
+    const { results, info } = await fetchCharacters(page, filters);
+    return (
+      <div className="container mx-auto p-4">
+        <Filter currentFilters={filters} />
+        {results.length > 0 ? (
+          <CharacterCardsList characters={results} />
+        ) : (
+          <div className="flex justify-center items-center h-[50vh]">
+            <NoResults />
+          </div>
+        )}
+        {info.pages > 1 && (
+          <Pagination currentPage={page} totalPages={info.pages} buildPageUrl={buildPageUrl} />
+        )}
+      </div>
+    );
+  } catch {
     return <SomeError />;
   }
-
-  return (
-    <div className="flex flex-col items-center justify-center py-8 px-4">
-      <Filter currentFilters={filters} />
-      <CharacterCardsList characters={characters} />
-      <Pagination
-        currentPage={currentPage}
-        totalPages={info.pages}
-        onPageChange={(page) => buildPageUrl(filters, page)}
-      />
-    </div>
-  );
 }

@@ -1,6 +1,6 @@
 export const PAGE_DIRECTIONS = {
-  PREV: "←",
-  NEXT: "→",
+  PREV: "<",
+  NEXT: ">",
   ELLIPSIS: "...",
 };
 

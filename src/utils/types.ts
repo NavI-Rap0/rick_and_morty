@@ -8,7 +8,7 @@ export interface FilterProps {
       name?: string;
     };
   }
-  
+
 
   export type PaginationProps = {
     currentPage: number;
@@ -18,10 +18,8 @@ export interface FilterProps {
   
   export type PageRange = (string | number)[];
 
-// Тип для фільтрів запитів
 export type Filters = Record<string, string | undefined>;
 
-// Тип для відповіді API
 export type ApiResponse<T> = {
   results: T[];
   info: {
@@ -30,7 +28,6 @@ export type ApiResponse<T> = {
   };
 };
 
-// Тип для персонажа
 export interface Character {
   id: number;
   name: string;
@@ -43,7 +40,6 @@ export interface Character {
   episode: string[];
 }
 
-// Тип для епізоду
 export interface Episode {
   id: number;
   name: string;
@@ -53,7 +49,6 @@ export interface Episode {
   created: string;
 }
 
-// Тип для локації
 export interface Location {
   id: number;
   name: string;

@@ -4,6 +4,7 @@ import SearchHandler from "@/components/SearchHandler";
 import Pagination from "@/components/Pagination";
 import SomeError from "@/components/SomeError";
 import LocationsList from "@/components/LocationsList";
+import NoResults from "@/components/NoResults";
 
 interface SearchParams {
   page?: string;
@@ -20,26 +21,26 @@ export default async function LocationsPage({
   const searchQuery = awaitedSearchParams?.name ?? "";
 
   const data = await fetchLocations(currentPage, searchQuery);
-  if (data === null) {
-    return <SomeError />;
-  }
-
-  const { results: locations, info } = data;
-
+  
   return (
     <div className="flex flex-col items-center justify-center py-8 px-4">
       <SearchHandler />
-      {locations.length > 0 ? (
+
+      {data === null ? (
+        <SomeError />
+      ) : data.results.length > 0 ? (
         <>
-          <LocationsList locations={locations} />
+          <LocationsList locations={data.results} />
           <Pagination
             currentPage={currentPage}
-            totalPages={info.pages}
-            onPageChange={(page: number) => buildLocationsPageUrl({ name: searchQuery }, page)}
+            totalPages={data.info.pages}
+            buildPageUrl={(filters, page) => buildLocationsPageUrl({ ...filters, name: searchQuery }, page)}
           />
         </>
       ) : (
-        <p className="text-gray-500 mt-4">Локації не знайдено.</p>
+        <div className="flex justify-center items-center h-[40vh] sm:h-[50vh] !h-[40vh]">
+          <NoResults />
+        </div>
       )}
     </div>
   );

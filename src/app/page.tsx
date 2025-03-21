@@ -24,12 +24,6 @@ export default function HomePage() {
           ${textFinished ? "opacity-100" : "opacity-0"} 
           w-full md:w-[50vw] h-auto md:h-[80vh]`}
       >
-        {/* <ul className="mt-6 space-y-2 text-lg text-gray-300 mb-6">
-          <li> Characters – дізнайся, хто ти в цьому вимірі.</li>
-          <li> Episodes – всі божевільні пригоди.</li>
-          <li> Locations – досліджуй найдикіші локації!</li>
-        </ul> */}
-
         <PortalLink />
       </div>
     </div>
