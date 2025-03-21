@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import AnimatedText from "@/components/AnimatedMessage";
-import PortalLink from "@/components/PortalLink";
+import AnimatedText from "@/components/AnimatedMessage/AnimatedMessage";
+import PortalLink from "@/components/PortalLink/PortalLink";
 
 export default function HomePage() {
   const [textFinished, setTextFinished] = useState(false);
@@ -20,10 +20,11 @@ export default function HomePage() {
 
 
       <div
-        className={`flex flex-col items-center justify-around text-center transition-opacity duration-1000
-          ${textFinished ? "opacity-100" : "opacity-0"} 
-          w-full md:w-[50vw] h-auto md:h-[80vh]`}
-      >
+  className={`flex flex-col items-center justify-around text-center transition-opacity duration-1000
+    ${textFinished ? "opacity-100 pointer-events-auto visible" : "opacity-0 pointer-events-none invisible"} 
+    w-full md:w-[50vw] h-auto md:h-[80vh]`}
+>
+
         <PortalLink />
       </div>
     </div>

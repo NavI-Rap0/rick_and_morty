@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import BurgerMenu from "./BurgerMenu";
+import BurgerMenu from "../BurgerMenu/BurgerMenu";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);

@@ -1,9 +1,9 @@
 import { fetchEpisodes } from "@/utils/fetchData";
 import { buildEpisodesPageUrl } from "@/helpers/pagesHelpers";
-import SearchHandler from "@/components/SearchHandler";
-import Pagination from "@/components/Pagination";
-import EpisodesList from "@/components/EpisodesList";
-import NoResults from "@/components/NoResults";
+import SearchHandler from "@/components/SearchBar/SearchHandler";
+import Pagination from "@/components/Pagination/Pagination";
+import EpisodesList from "@/components/EpisodesList/EpisodesList";
+import NoResults from "@/components/NoResults/NoResults";
 
 interface SearchParams {
   page?: string;

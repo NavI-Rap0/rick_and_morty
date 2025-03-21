@@ -1,6 +1,6 @@
 import { Filters } from "@/utils/types";
-import { createPageRange } from "../helpers/paginationHelpers";
-import { PAGE_DIRECTIONS } from "../utils/constants";
+import { createPageRange } from "@/helpers/paginationHelpers";
+import { PAGE_DIRECTIONS } from "@/utils/constants";
 
 export default function Pagination({
   currentPage,

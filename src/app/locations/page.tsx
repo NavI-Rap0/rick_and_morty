@@ -1,10 +1,10 @@
 import { fetchLocations } from "@/utils/fetchData";
 import { buildLocationsPageUrl } from "@/helpers/pagesHelpers";
-import SearchHandler from "@/components/SearchHandler";
-import Pagination from "@/components/Pagination";
-import SomeError from "@/components/SomeError";
-import LocationsList from "@/components/LocationsList";
-import NoResults from "@/components/NoResults";
+import SearchHandler from "@/components/SearchBar/SearchHandler";
+import Pagination from "@/components/Pagination/Pagination";
+import SomeError from "@/components/SomeError/SomeError";
+import LocationsList from "@/components/LocationsList/LocationsList";
+import NoResults from "@/components/NoResults/NoResults";
 
 interface SearchParams {
   page?: string;

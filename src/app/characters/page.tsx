@@ -1,10 +1,10 @@
 import { fetchCharacters } from "@/utils/fetchData";
 import { buildFilters, buildPageUrl } from "@/helpers/pagesHelpers";
-import CharacterCardsList from "@/components/CharacterCardsList";
-import Pagination from "@/components/Pagination";
-import Filter from "@/components/Filter";
-import SomeError from "@/components/SomeError";
-import NoResults from "@/components/NoResults";
+import CharacterCardsList from "@/components/CharacterCardsList/CharacterCardsList";
+import Pagination from "@/components/Pagination/Pagination";
+import Filter from "@/components/Filter/Filter";
+import SomeError from "@/components/SomeError/SomeError";
+import NoResults from "@/components/NoResults/NoResults";
 
 interface SearchParams {
   page?: string;

@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef, useEffect, useCallback } from "react";
-import { handleClear } from "../helpers/searchHelpers";
+import { handleClear } from "@/helpers/searchHelpers";
 
 let debounceTimer: NodeJS.Timeout;
 

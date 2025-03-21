@@ -1,6 +1,6 @@
 import React from "react";
-import CharacterCard from "./CharacterCard/CharacterCard";
-import NoResults from "./NoResults";
+import CharacterCard from "../CharacterCard/CharacterCard";
+import NoResults from "../NoResults/NoResults";
 
 type Character = {
   id: number;

@@ -1,7 +1,7 @@
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/Navbar/Navbar";
 import "@/styles/globals.css";
 import { LoaderProvider } from "@/utils/contextLoader";
-import Loader from "@/components/Loader";
+import Loader from "@/components/Loader/Loader";
 import SpaceBackground from "@/components/SpaceBgr/SpaceBackground";
 
 export const metadata = {

@@ -1,5 +1,5 @@
-import SomeError from "@/components/SomeError";
-import Button from "@/components/Button";
+import SomeError from "@/components/SomeError/SomeError";
+import Button from "@/components/CollorButton/CollorButton";
 import { fetchCharacterById, fetchEpisodesByIds } from "@/utils/fetchData";
 import Image from "next/image";
 

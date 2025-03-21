@@ -2,7 +2,7 @@
 
 "use client"; 
 
-import { useLoader } from "../utils/contextLoader";
+import { useLoader } from "../../utils/contextLoader";
 
 export default function Loader() {
   const { loading } = useLoader();
